@@ -1,0 +1,54 @@
+---
+title: "Assignment2_exercise1"
+author: '202315214'
+date: "2023-11-01"
+output: html_document
+---
+```{r setup, include=FALSE}
+# Set code chunk options to display code execution
+knitr::opts_chunk$set(echo = TRUE)
+
+# Load the required library
+library(dplyr)
+
+# Define a function named 'calculate_performance' that takes two arguments 'data' and 'Performance_indicator'
+calculate_performance <- function(data, Performance_indicator) {
+  # Check if 'data' is a data frame
+  if (!is.data.frame(data)) {
+    stop("Input data must be a data frame.")
+  }
+  
+  # Use a conditional statement to perform different data transformations
+  if (Performance_indicator == "Engine_Efficiency") {
+    # Use mutate to calculate Engine Efficiency and add it as a new column
+    transformed_data <- data %>%
+      mutate(Engine_Efficiency = mpg / hp)
+  } else if (Performance_indicator == "Acceleration_Performance") {
+    transformed_data <- data %>%
+      mutate(Acceleration_Performance = qsec / hp)
+  } else {
+    stop("Invalid Performance_indicator. Use 'Engine_Efficiency' or 'Acceleration_Performance'.")
+  }
+  
+  # Return the transformed data
+  return(transformed_data)
+}
+
+# Output explanatory text
+print("Below will show how the function works with different conditional argument inputs.")
+
+# Load the built-in 'mtcars' dataset
+data(mtcars)
+
+# Use the function to calculate Engine Efficiency and Acceleration Performance
+mtcars_with_Engine_Efficiency <- calculate_performance(mtcars, "Engine_Efficiency")
+mtcars_with_Acceleration_Performance <- calculate_performance(mtcars, "Acceleration_Performance")
+
+# Print the transformed data
+print("Engine Efficiency (mpg / hp):")
+print(mtcars_with_Engine_Efficiency)
+
+print("Acceleration Performance (qsec / hp):")
+print(mtcars_with_Acceleration_Performance)
+
+```
